@@ -86,7 +86,7 @@ void logic(){
     char input;
     while (1) {
         if (turn) {
-            while (scanf("%c\n", &input) != 1 || (input != 'A' && input != 'Z' && input != ' ')); // читаем пока не введут нужный символ
+            while (scanf("%c\n", &input) != 1 || (input != 'A' && input != 'Z' && input != ' ')); // читаем, пока не введут нужный символ
             l_ro = move_rocket(l_ro, input);
         } else {
             while (scanf("%c\n", &input) != 1 || (input != 'K' && input != 'M' && input != ' '));
