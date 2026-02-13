@@ -96,7 +96,7 @@ void logic(){
         x_acc = get_x_acc(y_ball, x_ball, x_acc, l_ro, r_ro);
         x_ball += x_acc;
         y_ball += y_acc;
-        if (get_goal(x_ball)){
+        if (get_goal(x_ball) != 0){
             if (get_goal(x_ball) == 1) {
                 r_s++;
             } else {
