@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ncurses.h>
 
 int draw(int l_rocket, int r_rocket, int x_ball, int y_ball, int l_score, int r_score) {
     return l_rocket + r_rocket + x_ball + y_ball + l_score + r_score; //заглушка
@@ -80,17 +81,26 @@ int is_win(int r_s, int l_s) {
     }
     return r;
 }
-
+void init() {
+    initscr();
+    cbreak();               // Отключаем буферизацию строк
+    noecho();               // Не отображаем вводимые символы
+    keypad(stdscr, TRUE);   // Включаем специальные клавиши
+    nodelay(stdscr, TRUE);  // Неблокирующий ввод
+    curs_set(0);            // Скрываем курсор
+}
 void logic(){
+    init();
     int l_ro = 12, r_ro = 12, x_ball = 40, y_ball = 12, x_acc = -1, y_acc = 0, l_s = 0, r_s = 0, turn = 0;
     char input;
     while (1) {
+        clear();
+        input = ' ';
+        input = getch();
         if (turn) {
-            while (scanf("%c\n", &input) != 1 || (input != 'A' && input != 'Z' && input != ' ')); // читаем пока не введут нужный символ
-            l_ro = move_rocket(l_ro, input);
+            if((input == 'A') || (input == 'Z' )) l_ro = move_rocket(l_ro, input);
         } else {
-            while (scanf("%c\n", &input) != 1 || (input != 'K' && input != 'M' && input != ' '));
-            r_ro = move_rocket(r_ro, input);
+            if ((input == 'K') || (input == 'M')) r_ro = move_rocket(r_ro, input);
         }
         y_acc = get_y_acc(y_ball, x_ball, y_acc, x_acc, l_ro, r_ro);
         x_acc = get_x_acc(y_ball, x_ball, x_acc, l_ro, r_ro);
@@ -106,9 +116,16 @@ void logic(){
             x_ball = 40;
         }
         turn = turn ^ 1;
+        refresh(); 
+        usleep(50000);
         draw(l_ro, r_ro, x_ball, y_ball, l_s, r_s);
         if (is_win(r_s, l_s)){
             break;
         }
     }
+}
+
+int main() {
+    logic();
+    return 0;
 }
