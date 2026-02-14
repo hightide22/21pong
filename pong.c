@@ -1,7 +1,22 @@
 #include <stdio.h>
 
-int draw(int l_rocket, int r_rocket, int x_ball, int y_ball, int l_score, int r_score) {
-    return l_rocket + r_rocket + x_ball + y_ball + l_score + r_score; //заглушка
+void draw(int l_rocket, int r_rocket, int x_ball, int y_ball, int l_score, int r_score) {
+    printf("Score: %d : %d\n\n\n", l_score, r_score);
+    for (int i = -1; i <= 25; i++) {
+        for (int j = 0; j < 80; j++) {
+            if ((j == 0 && (i == l_rocket || i == l_rocket - 1 || i == l_rocket + 1)) ||
+                (j == 79 && (i == r_rocket || i == r_rocket - 1 || i == r_rocket + 1))) {
+                printf("|");
+            } else if (i == -1 || i == 25) {
+                printf("—");
+            } else if (y_ball == i && x_ball == j) {
+                printf("*");
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
 }
 
 int get_y_acc(int y_ball, int x_ball, int y_acc, int x_acc, int l_rocket, int r_rocket) {
