@@ -1,0 +1,90 @@
+CC = gcc
+CFLAGS = -c -Wall -Werror -Wextra
+BUILD_DIR = ../../build
+
+SRC1 = s21_string_test.c
+SRC2 = s21_string.c
+
+OBJECT1=$(SRC1).0
+OBJECT2=$(SRC2).0
+
+Q6 = $(BUILD_DIR)/Quest_6
+Q7 = $(BUILD_DIR)/Quest_7
+Q8 = $(BUILD_DIR)/Quest_8
+Q9 = $(BUILD_DIR)/Quest_9
+Q10 = $(BUILD_DIR)/Quest_10
+Q11 = $(BUILD_DIR)/Quest_11
+Q12 = $(BUILD_DIR)/Quest_12
+
+
+
+
+
+.PHONY: all clean rebuild
+
+all: strlen_tests strcmp_tests strcpy_tests strcat_tests strchr_tests strstr_tests strtok_tests text_processor
+
+strlen_tests: clean $(Q6)
+$(Q6): $(OBJECT1)_q6.o $(OBJECT2)_q6.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q6.o: $(SRC1)
+	$(CC) -DQ6 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q6.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+
+strcmp: clean $(Q7)
+$(Q7): $(OBJECT1)_q7.o $(OBJECT2)_q7.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q7.o: $(SRC1)
+	$(CC) -DQ7 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q7.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+
+strcpy: clean $(Q8)
+$(Q8): $(OBJECT1)_q8.o $(OBJECT2)_q8.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q8.o: $(SRC1)
+	$(CC) -DQ8 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q8.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+strcat: clean $(Q9)
+$(Q9): $(OBJECT1)_q9.o $(OBJECT2)_q9.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q9.o: $(SRC1)
+	$(CC) -DQ9 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q9.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+strchr: clean $(Q10)
+$(Q10): $(OBJECT1)_q10.o $(OBJECT2)_q10.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q10.o: $(SRC1)
+	$(CC) -DQ10 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q10.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+
+strstr: clean $(Q11)
+$(Q11): $(OBJECT1)_q11.o $(OBJECT2)_q11.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q11.o: $(SRC1)
+	$(CC) -DQ11 $(CFLAGS) $^ -o $@
+$(OBJECT2)_q11.o: $(SRC2)
+	$(CC) $(CFLAGS) $^ -o $@
+
+full_coverage_tests: clean $(Q12)
+$(Q12): $(OBJECT1)_q12.o $(OBJECT2)_q12.o
+	$(CC) $^ -o $@
+$(OBJECT1)_q12.o: $(SRC1)
+	$(CC) -DQ12 $(CFLAGS) -c $^ -o $@
+$(OBJECT2)_q12.o: $(SRC2)
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+
+
+clean_all:
+	rm -rf *.o **/*.o
+	rm 	$(BUILD_DIR)/*
+
+clean:
+	rm -rf *.o **/*.o
+
+rebuild: clean all
